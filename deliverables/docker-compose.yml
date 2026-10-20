@@ -1,0 +1,25 @@
+# Uptime Kuma compose file.
+# The upstream compose.yaml names the image louislam/uptime-kuma.
+# That file's tag and the install wiki's older docker example have used
+# different moving tags. Set UPTIME_KUMA_IMAGE after you check upstream docs.
+# Do not pull the marker tag in deliverables/.env.
+#
+# The same upstream compose file publishes container port 3001 and mounts
+# the data directory at /app/data. This file keeps those two values and binds
+# the host side to 127.0.0.1. Check upstream docs if a later release moves them.
+# The install wiki says /app/data needs a filesystem with POSIX file locks
+# and calls out NFS. Use the named volume below or a local bind mount.
+
+name: uptime-kuma-setup
+
+services:
+  uptime-kuma:
+    image: ${UPTIME_KUMA_IMAGE:?set UPTIME_KUMA_IMAGE check upstream docs}
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${UPTIME_KUMA_HOST_PORT:-3001}:3001"
+    volumes:
+      - uptime-kuma-data:/app/data
+
+volumes:
+  uptime-kuma-data: {}

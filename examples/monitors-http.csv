@@ -1,0 +1,4 @@
+name,type,url,method,interval_seconds,retry_interval_seconds,max_retries,accepted_statuscodes,upside_down
+Example home,http,https://example.com/,GET,60,60,0,200-299,false
+Example health,http,https://example.com/health,GET,60,60,1,200-299,false
+Example status,http,https://example.com/status,HEAD,120,60,0,200-299,false
